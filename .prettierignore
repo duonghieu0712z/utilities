@@ -1,0 +1,9 @@
+.vscode
+.yarn
+
+node_modules
+
+src-tauri/gen
+src-tauri/target
+
+dist

@@ -1,9 +1,9 @@
-import { Splash } from '@/views';
+import { Main } from '@/views';
 
 export default function App() {
     return (
         <div className='h-screen overflow-hidden'>
-            <Splash />
+            <Main />
         </div>
     );
 }

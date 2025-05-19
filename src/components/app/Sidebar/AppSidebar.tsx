@@ -1,7 +1,8 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarMenu, SidebarSeparator } from '@/components/ui/sidebar';
 
-import CodeGroup from './CodeGroup';
+import CodeMenu from './CodeMenu';
 import FooterSidebar from './FooterSidebar';
+import ImageMenu from './ImageMenu';
 
 export default function AppSidebar() {
     return (
@@ -9,7 +10,8 @@ export default function AppSidebar() {
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarMenu>
-                        <CodeGroup />
+                        <CodeMenu />
+                        <ImageMenu />
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>

@@ -3,7 +3,7 @@ import { SiCss3, SiHtml5, SiJavascript } from 'react-icons/si';
 
 import MenuSidebar from './MenuSidebar';
 
-export default function CodeMenu() {
+export default function MenuCode() {
     const data = {
         name: 'HTML - CSS - JS',
         icon: LuCodeXml,

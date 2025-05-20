@@ -4,7 +4,7 @@ import { SiConvertio } from 'react-icons/si';
 
 import MenuSidebar from './MenuSidebar';
 
-export default function ImageMenu() {
+export default function MenuImage() {
     const data = {
         name: 'Image',
         icon: Image,

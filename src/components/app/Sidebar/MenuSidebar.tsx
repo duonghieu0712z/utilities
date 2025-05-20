@@ -24,7 +24,7 @@ type MenuSidebarProps = {
 
 export default function MenuSidebar({ ...props }: MenuSidebarProps) {
     return (
-        <Collapsible key={props.name} defaultOpen className='group/collapsible' asChild>
+        <Collapsible defaultOpen className='group/collapsible' asChild>
             <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                     <SidebarMenuButton tooltip={props.name}>

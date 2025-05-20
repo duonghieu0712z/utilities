@@ -7,7 +7,7 @@ import MenuImage from './MenuImage';
 export default function AppSidebar() {
     return (
         <Sidebar collapsible='icon'>
-            <SidebarContent>
+            <SidebarContent className='overflow-x-hidden'>
                 <SidebarGroup>
                     <SidebarMenu>
                         <MenuCode />

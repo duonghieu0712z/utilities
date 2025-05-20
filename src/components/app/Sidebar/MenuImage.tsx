@@ -1,6 +1,6 @@
 import { Image } from 'lucide-react';
+import { HiArrowPathRoundedSquare } from 'react-icons/hi2';
 import { MdCompare } from 'react-icons/md';
-import { SiConvertio } from 'react-icons/si';
 
 import MenuSidebar from './MenuSidebar';
 
@@ -11,7 +11,7 @@ export default function MenuImage() {
         items: [
             {
                 name: 'Converter',
-                icon: SiConvertio,
+                icon: HiArrowPathRoundedSquare,
                 url: '/image/converter',
             },
             {

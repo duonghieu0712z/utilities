@@ -11,14 +11,17 @@ export default function MenuCode() {
             {
                 name: 'HTML',
                 icon: SiHtml5,
+                url: '/',
             },
             {
                 name: 'CSS',
                 icon: SiCss3,
+                url: '/',
             },
             {
                 name: 'JS',
                 icon: SiJavascript,
+                url: '/',
             },
         ],
     };

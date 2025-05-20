@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react';
+import { Link } from 'react-router';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
@@ -12,6 +13,7 @@ import {
 type MenuItem = {
     name: string;
     icon: React.ElementType;
+    url: string;
 };
 
 type MenuSidebarProps = {
@@ -36,9 +38,11 @@ export default function MenuSidebar({ ...props }: MenuSidebarProps) {
                     <SidebarMenuSub>
                         {props.items.map((item) => (
                             <SidebarMenuSubItem key={item.name}>
-                                <SidebarMenuSubButton>
-                                    <item.icon />
-                                    <div>{item.name}</div>
+                                <SidebarMenuSubButton asChild>
+                                    <Link to={item.url}>
+                                        <item.icon />
+                                        <div>{item.name}</div>
+                                    </Link>
                                 </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                         ))}

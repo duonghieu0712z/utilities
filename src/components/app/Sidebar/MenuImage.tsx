@@ -12,10 +12,12 @@ export default function MenuImage() {
             {
                 name: 'Converter',
                 icon: SiConvertio,
+                url: '/image/converter',
             },
             {
                 name: 'Comparison',
                 icon: MdCompare,
+                url: '/image/comparison',
             },
         ],
     };

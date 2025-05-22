@@ -6,6 +6,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/s
 import Home from './Home';
 import ImageComparison from './ImageComparison';
 import ImageConverter from './ImageConverter';
+import ImageInfo from './ImageInfo';
 
 export default function Main() {
     return (
@@ -21,6 +22,7 @@ export default function Main() {
                     <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='image'>
+                            <Route path='info' element={<ImageInfo />} />
                             <Route path='converter' element={<ImageConverter />} />
                             <Route path='comparison' element={<ImageComparison />} />
                         </Route>

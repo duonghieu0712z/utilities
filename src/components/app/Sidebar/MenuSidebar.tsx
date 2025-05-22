@@ -1,4 +1,4 @@
-import { ChevronRight } from 'lucide-react';
+import { LuChevronRight } from 'react-icons/lu';
 import { Link } from 'react-router';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -30,7 +30,7 @@ export default function MenuSidebar({ ...props }: MenuSidebarProps) {
                     <SidebarMenuButton tooltip={props.name}>
                         <props.icon />
                         <div>{props.name}</div>
-                        <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+                        <LuChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
                     </SidebarMenuButton>
                 </CollapsibleTrigger>
 

@@ -20,13 +20,15 @@ export default function ImageInfo() {
     }, []);
 
     return (
-        <main className='flex size-full justify-center'>
+        <main className='flex h-full flex-col'>
             <div
-                className='m-8 flex h-2/3 w-full flex-col items-center justify-center rounded-xs border-2 border-dashed hover:cursor-pointer'
+                className='m-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-white hover:cursor-pointer'
                 onClick={openImage}
             >
                 {image ? (
-                    <img src={image} alt={image} className='h-full object-contain' />
+                    <div className='flex size-full items-center justify-center'>
+                        <img src={image} alt='preview' className='max-h-full object-contain' />
+                    </div>
                 ) : (
                     <>
                         <BsDownload size={128} className='mb-1' />
@@ -36,6 +38,8 @@ export default function ImageInfo() {
                     </>
                 )}
             </div>
+
+            <div className='flex h-25 items-center justify-center bg-zinc-800'>Metadata</div>
         </main>
     );
 }

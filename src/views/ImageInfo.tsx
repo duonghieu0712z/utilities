@@ -26,9 +26,7 @@ export default function ImageInfo() {
                 onClick={openImage}
             >
                 {image ? (
-                    <div className='flex size-full items-center justify-center'>
-                        <img src={image} alt='preview' className='max-h-full object-contain' />
-                    </div>
+                    <img src={image} alt='preview' className='max-h-full object-contain' />
                 ) : (
                     <>
                         <BsDownload size={128} className='mb-1' />

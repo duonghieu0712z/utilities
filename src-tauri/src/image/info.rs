@@ -2,7 +2,7 @@ use image::GenericImageView;
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]
-pub struct ImageMetadata {
+pub(crate) struct ImageMetadata {
     name: String,
     file_size: u64,
     width: u32,
@@ -15,7 +15,7 @@ pub struct ImageMetadata {
     has_alpha: bool,
 }
 
-pub fn get_metadata(path: &str) -> Result<ImageMetadata, Box<dyn std::error::Error>> {
+pub(super) fn get_metadata(path: &str) -> Result<ImageMetadata, Box<dyn std::error::Error>> {
     let reader = image::ImageReader::open(path)?.with_guessed_format()?;
     let format = reader.format().unwrap();
 

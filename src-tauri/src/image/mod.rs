@@ -1,1 +1,3 @@
-pub mod info;
+mod info;
+
+pub mod command;

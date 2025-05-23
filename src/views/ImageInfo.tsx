@@ -29,7 +29,6 @@ export default function ImageInfo() {
         <main className='flex h-full flex-col'>
             <div
                 className='mx-6 mt-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-white hover:cursor-pointer'
-                onDragEnter={(e) => console.log(e)}
                 onClick={openImage}
             >
                 {image ? (

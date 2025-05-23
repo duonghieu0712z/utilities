@@ -10,23 +10,26 @@ export default function ImageInfo() {
     const [image, setImage] = useState('');
     const [metadata, setMetadata] = useState<ImageMetadata>();
 
-    const openImage = useCallback(async () => {
-        const file = await open({ filters: [{ name: 'Image', extensions: ['png', 'jpg', 'jpeg', 'webp'] }] });
-        if (!file) {
-            return;
-        }
-
-        const assetFile = convertFileSrc(file);
+    const loadImage = useCallback(async (path: string) => {
+        const assetFile = convertFileSrc(path);
         setImage(assetFile);
 
-        const metadata: ImageMetadata = await invoke('get_image_info', { path: file });
+        const metadata: ImageMetadata = await invoke('get_image_info', { path });
         setMetadata(metadata);
     }, []);
+
+    const openImage = useCallback(async () => {
+        const file = await open({ filters: [{ name: 'Image', extensions: ['png', 'jpg', 'jpeg', 'webp'] }] });
+        if (file) {
+            await loadImage(file);
+        }
+    }, [loadImage]);
 
     return (
         <main className='flex h-full flex-col'>
             <div
                 className='mx-6 mt-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-white hover:cursor-pointer'
+                onDragEnter={(e) => console.log(e)}
                 onClick={openImage}
             >
                 {image ? (

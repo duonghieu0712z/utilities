@@ -1,12 +1,16 @@
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { extname } from '@tauri-apps/api/path';
+import { getCurrentWebview } from '@tauri-apps/api/webview';
 import { open } from '@tauri-apps/plugin-dialog';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
 
 import { ImageMetadata } from '@/types';
 import { formatSize } from '@/utils';
 
 export default function ImageInfo() {
+    const zoneRef = useRef<HTMLDivElement>(null);
+
     const [image, setImage] = useState('');
     const [metadata, setMetadata] = useState<ImageMetadata>();
 
@@ -25,9 +29,29 @@ export default function ImageInfo() {
         }
     }, [loadImage]);
 
+    useEffect(() => {
+        const unlisten = getCurrentWebview().onDragDropEvent(async (event) => {
+            if (event.payload.type === 'drop') {
+                const { x, y } = event.payload.position;
+                if (!document.elementsFromPoint(x, y).includes(zoneRef.current!)) {
+                    return;
+                }
+
+                const path = event.payload.paths[0];
+                if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
+                    await loadImage(path);
+                }
+            }
+        });
+        return () => {
+            unlisten.then((cb) => cb());
+        };
+    });
+
     return (
         <main className='flex h-full flex-col'>
             <div
+                ref={zoneRef}
                 className='mx-6 mt-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-white hover:cursor-pointer'
                 onClick={openImage}
             >

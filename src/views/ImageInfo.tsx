@@ -2,6 +2,7 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { extname } from '@tauri-apps/api/path';
 import { getCurrentWebview } from '@tauri-apps/api/webview';
 import { open } from '@tauri-apps/plugin-dialog';
+import { stat } from '@tauri-apps/plugin-fs';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
 
@@ -38,6 +39,10 @@ export default function ImageInfo() {
                 }
 
                 const path = event.payload.paths[0];
+                if (!(await stat(path)).isFile) {
+                    return;
+                }
+
                 if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
                     await loadImage(path);
                 }

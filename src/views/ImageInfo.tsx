@@ -6,14 +6,17 @@ import { stat } from '@tauri-apps/plugin-fs';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
 
+import { cn } from '@/lib/utils';
 import { ImageMetadata } from '@/types';
-import { formatSize } from '@/utils';
+import { formatSize, inHtmlElement } from '@/utils';
 
 export default function ImageInfo() {
-    const zoneRef = useRef<HTMLDivElement>(null);
+    const dropZoneRef = useRef<HTMLDivElement>(null);
 
     const [image, setImage] = useState('');
     const [metadata, setMetadata] = useState<ImageMetadata>();
+
+    const [isDragging, setIsDragging] = useState(false);
 
     const loadImage = useCallback(async (path: string) => {
         const assetFile = convertFileSrc(path);
@@ -32,19 +35,34 @@ export default function ImageInfo() {
 
     useEffect(() => {
         const unlisten = getCurrentWebview().onDragDropEvent(async (event) => {
-            if (event.payload.type === 'drop') {
-                const { x, y } = event.payload.position;
-                if (!document.elementsFromPoint(x, y).includes(zoneRef.current!)) {
+            switch (event.payload.type) {
+                case 'over': {
+                    const { x, y } = event.payload.position;
+                    setIsDragging(inHtmlElement(dropZoneRef.current!, x, y));
                     return;
                 }
 
-                const path = event.payload.paths[0];
-                if (!(await stat(path)).isFile) {
+                case 'leave':
+                    setIsDragging(false);
                     return;
-                }
 
-                if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
-                    await loadImage(path);
+                case 'drop': {
+                    setIsDragging(false);
+
+                    const { x, y } = event.payload.position;
+                    if (!inHtmlElement(dropZoneRef.current!, x, y)) {
+                        return;
+                    }
+
+                    const path = event.payload.paths[0];
+                    if (!(await stat(path)).isFile) {
+                        return;
+                    }
+
+                    if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
+                        await loadImage(path);
+                    }
+                    return;
                 }
             }
         });
@@ -56,18 +74,48 @@ export default function ImageInfo() {
     return (
         <main className='flex h-full flex-col'>
             <div
-                ref={zoneRef}
-                className='mx-6 mt-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-white hover:cursor-pointer'
+                ref={dropZoneRef}
+                className={cn(
+                    'group/drag mx-6 mt-6 flex min-h-0 shrink grow basis-0 flex-col items-center justify-center rounded-xs border-2 border-dashed border-zinc-600 hover:cursor-pointer active:border-white',
+                    isDragging && 'border-white'
+                )}
                 onClick={openImage}
             >
                 {image ? (
-                    <img src={image} alt='preview' className='h-full object-contain' />
+                    <img src={image} alt='preview' className='h-full object-contain hover:cursor-pointer' />
                 ) : (
                     <>
-                        <BsDownload size={128} className='mb-1' />
-                        <div className='text-xl font-semibold'>Click to open image</div>
-                        <div>or</div>
-                        <div className='text-xl font-semibold'>Drag and drop image here</div>
+                        <BsDownload
+                            size={128}
+                            className={cn(
+                                'mb-1 fill-zinc-600 group-active/drag:fill-white hover:cursor-pointer',
+                                isDragging && 'fill-white'
+                            )}
+                        />
+                        <div
+                            className={cn(
+                                'text-xl font-semibold text-zinc-600 group-active/drag:text-white hover:cursor-pointer',
+                                isDragging && 'text-white'
+                            )}
+                        >
+                            Click to open image
+                        </div>
+                        <div
+                            className={cn(
+                                'text-zinc-600 group-active/drag:text-white hover:cursor-pointer',
+                                isDragging && 'text-white'
+                            )}
+                        >
+                            or
+                        </div>
+                        <div
+                            className={cn(
+                                'text-xl font-semibold text-zinc-600 group-active/drag:text-white hover:cursor-pointer',
+                                isDragging && 'text-white'
+                            )}
+                        >
+                            Drag and drop image here
+                        </div>
                     </>
                 )}
             </div>

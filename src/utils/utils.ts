@@ -4,3 +4,7 @@ export function formatSize(size: number) {
     const i = Math.floor(Math.log2(size) / 10);
     return `${(size / 1024 ** i).toFixed(2)} ${units[i]}`;
 }
+
+export function inHtmlElement(element: HTMLElement, x: number, y: number) {
+    return document.elementsFromPoint(x, y).includes(element);
+}

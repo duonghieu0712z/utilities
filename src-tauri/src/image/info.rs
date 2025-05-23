@@ -2,8 +2,9 @@ use image::GenericImageView;
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub(crate) struct ImageMetadata {
-    name: String,
+    file_name: String,
     file_size: u64,
     width: u32,
     height: u32,
@@ -30,7 +31,7 @@ pub(super) fn get_metadata(path: &str) -> Result<ImageMetadata, Box<dyn std::err
     let size = std::fs::metadata(path)?.len();
 
     let metadata = ImageMetadata {
-        name: filename.to_string(),
+        file_name: filename.to_string(),
         file_size: size,
         width: width,
         height: height,

@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 import { ImageMetadata } from '@/types';
 import { formatSize, inHtmlElement } from '@/utils';
 
+const IMAGE_EXTENSIONS = ['bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'tiff', 'webp'];
+
 export default function ImageInfo() {
     const dropZoneRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +36,7 @@ export default function ImageInfo() {
     }, []);
 
     const openImage = useCallback(async () => {
-        const file = await open({ filters: [{ name: 'Image', extensions: ['png', 'jpg', 'jpeg', 'webp'] }] });
+        const file = await open({ filters: [{ name: 'Image', extensions: IMAGE_EXTENSIONS }] });
         if (file) {
             await loadImage(file);
         }
@@ -59,7 +61,7 @@ export default function ImageInfo() {
                 return;
             }
 
-            if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
+            if (IMAGE_EXTENSIONS.includes(await extname(path))) {
                 await loadImage(path);
             }
         },
@@ -109,6 +111,19 @@ export default function ImageInfo() {
                             )}
                         >
                             Drag and drop image here
+                        </div>
+                        <div
+                            className={cn(
+                                'mt-1 text-zinc-600 group-active/drag:text-white hover:cursor-pointer',
+                                isDragging && 'text-white'
+                            )}
+                        >
+                            (Supported formats:{' '}
+                            {IMAGE_EXTENSIONS.filter((ext) => ext !== 'jpeg')
+                                .map((ext) => ext.toUpperCase())
+                                .join(', ')
+                                .replace(/, ([^,]*)$/, ' or $1')}
+                            )
                         </div>
                     </>
                 )}

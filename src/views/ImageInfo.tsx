@@ -1,11 +1,11 @@
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { extname } from '@tauri-apps/api/path';
-import { getCurrentWebview } from '@tauri-apps/api/webview';
 import { open } from '@tauri-apps/plugin-dialog';
 import { stat } from '@tauri-apps/plugin-fs';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
 
+import { useDragDrop } from '@/hooks/use-drag-drop';
 import { cn } from '@/lib/utils';
 import { ImageMetadata } from '@/types';
 import { formatSize, inHtmlElement } from '@/utils';
@@ -33,42 +33,29 @@ export default function ImageInfo() {
         }
     }, [loadImage]);
 
-    useEffect(() => {
-        const unlisten = getCurrentWebview().onDragDropEvent(async (event) => {
-            switch (event.payload.type) {
-                case 'over': {
-                    const { x, y } = event.payload.position;
-                    setIsDragging(inHtmlElement(dropZoneRef.current!, x, y));
-                    return;
-                }
+    useDragDrop({
+        over: (event) => {
+            const { x, y } = event.payload.position;
+            setIsDragging(inHtmlElement(dropZoneRef.current!, x, y));
+        },
+        leave: () => setIsDragging(false),
+        drop: async (event) => {
+            setIsDragging(false);
 
-                case 'leave':
-                    setIsDragging(false);
-                    return;
-
-                case 'drop': {
-                    setIsDragging(false);
-
-                    const { x, y } = event.payload.position;
-                    if (!inHtmlElement(dropZoneRef.current!, x, y)) {
-                        return;
-                    }
-
-                    const path = event.payload.paths[0];
-                    if (!(await stat(path)).isFile) {
-                        return;
-                    }
-
-                    if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
-                        await loadImage(path);
-                    }
-                    return;
-                }
+            const { x, y } = event.payload.position;
+            if (!inHtmlElement(dropZoneRef.current!, x, y)) {
+                return;
             }
-        });
-        return () => {
-            unlisten.then((cb) => cb());
-        };
+
+            const path = event.payload.paths[0];
+            if (!(await stat(path)).isFile) {
+                return;
+            }
+
+            if (['png', 'jpg', 'jpeg', 'webp'].includes(await extname(path))) {
+                await loadImage(path);
+            }
+        },
     });
 
     return (

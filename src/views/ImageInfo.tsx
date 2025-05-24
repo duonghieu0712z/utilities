@@ -1,6 +1,6 @@
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
 import { extname } from '@tauri-apps/api/path';
-import { open } from '@tauri-apps/plugin-dialog';
+import { message, open } from '@tauri-apps/plugin-dialog';
 import { stat } from '@tauri-apps/plugin-fs';
 import { useCallback, useRef, useState } from 'react';
 import { BsDownload } from 'react-icons/bs';
@@ -19,11 +19,18 @@ export default function ImageInfo() {
     const [isDragging, setIsDragging] = useState(false);
 
     const loadImage = useCallback(async (path: string) => {
-        const assetFile = convertFileSrc(path);
-        setImage(assetFile);
+        try {
+            const assetFile = convertFileSrc(path);
+            const metadata: ImageMetadata = await invoke('get_image_info', { path });
 
-        const metadata: ImageMetadata = await invoke('get_image_info', { path });
-        setMetadata(metadata);
+            setImage(assetFile);
+            setMetadata(metadata);
+        } catch {
+            await message('Error loading image: Invalid image file or unsupported format.', {
+                kind: 'error',
+                title: 'Error',
+            });
+        }
     }, []);
 
     const openImage = useCallback(async () => {

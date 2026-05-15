@@ -22,7 +22,7 @@ pub fn run() {
     let builder = builder.plugin(
         tauri_plugin_log::Builder::new()
             .level(tauri_plugin_log::log::LevelFilter::Info)
-            .filter(|metadata| metadata.target().starts_with("kazmas"))
+            .filter(|metadata| metadata.target().starts_with("utilities"))
             .format(|out, message, record| {
                 out.finish(format_args!(
                     "[{}]|{:<5}: {}",

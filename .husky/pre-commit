@@ -1,7 +1,3 @@
 #!/bin/bash
 
 pnpm lint-staged
-
-cd src-tauri
-cargo fmt
-git add .

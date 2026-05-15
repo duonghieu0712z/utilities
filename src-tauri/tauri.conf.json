@@ -1,8 +1,8 @@
 {
     "$schema": "https://schema.tauri.app/config/2",
-    "productName": "Kazmas",
+    "productName": "Utilities",
     "version": "0.0.1",
-    "identifier": "com.kazmas.desktop",
+    "identifier": "dev.duonghieu0712z.utilities",
     "build": {
         "beforeDevCommand": "pnpm dev",
         "devUrl": "http://localhost:1420",
@@ -12,9 +12,10 @@
     "app": {
         "windows": [
             {
-                "title": "Kazmas",
-                "center": true,
-                "maximized": true
+                "title": "Utilities",
+                "width": 1440,
+                "height": 900,
+                "center": true
             }
         ],
         "security": {
@@ -22,7 +23,7 @@
         }
     },
     "bundle": {
-        "publisher": "Kazmas",
+        "publisher": "duonghieu0712z",
         "active": true,
         "targets": ["app", "dmg", "msi", "nsis"],
         "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]

@@ -25,6 +25,7 @@
             "unknown"
         ]
     },
+    "sortPackageJson": true,
     "sortTailwindcss": {
         "functions": ["clsx", "cn", "cva", "twMerge"]
     },

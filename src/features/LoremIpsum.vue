@@ -1,25 +1,52 @@
 <script setup lang="ts">
 import type { LoremUnit } from 'lorem-ipsum';
 
-import { ChevronDownIcon, CopyIcon } from '@lucide/vue';
-import { useClipboard } from '@vueuse/core';
+import { ChevronDownIcon, CopyCheckIcon, CopyIcon } from '@lucide/vue';
+import { useClipboard, useTimeoutFn } from '@vueuse/core';
 import { loremIpsum } from 'lorem-ipsum';
-import { ref } from 'vue';
 
 const UNITS: LoremUnit[] = ['paragraphs', 'sentences', 'words'];
 
 const count = ref(5);
 const unit = ref<LoremUnit>('paragraphs');
 const text = ref('');
+const copied = ref(false);
 
 const { copy } = useClipboard();
+const { start: resetCopied } = useTimeoutFn(
+    () => {
+        copied.value = false;
+    },
+    800,
+    { immediate: false },
+);
+
+function generateText() {
+    text.value = loremIpsum({ count: count.value, units: unit.value });
+}
+
+async function copyText() {
+    if (!text.value) {
+        return;
+    }
+
+    await copy(text.value);
+    copied.value = true;
+    resetCopied();
+}
 </script>
 
 <template>
-    <div class="flex h-full flex-col gap-4 px-12 py-8">
+    <div class="flex h-full flex-col gap-6 py-8">
         <div class="flex w-full gap-4">
             <InputGroup>
-                <InputGroupInput :model-value="count" name="count" />
+                <InputGroupInput
+                    v-model.number="count"
+                    class="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    min="1"
+                    name="count"
+                    type="number"
+                />
                 <InputGroupAddon align="inline-end" class="-mr-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger as="div">
@@ -45,16 +72,15 @@ const { copy } = useClipboard();
                 </InputGroupAddon>
             </InputGroup>
 
-            <Button variant="outline" @click="text = loremIpsum({ count, units: unit })">
-                Generate
-            </Button>
-            <Button size="icon" variant="outline" @click="async () => await copy(text)">
-                <CopyIcon />
+            <Button variant="outline" @click="generateText">Generate</Button>
+            <Button :disabled="!text" size="icon" variant="outline" @click="copyText">
+                <CopyCheckIcon v-if="copied" />
+                <CopyIcon v-else />
             </Button>
         </div>
 
         <Textarea
-            class="flex-1 resize-none text-justify font-mono text-base"
+            class="flex-1 resize-none font-mono"
             :model-value="text"
             name="lorem-ipsum"
             readonly

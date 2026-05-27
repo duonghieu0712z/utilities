@@ -9,6 +9,6 @@ import '@/styles/globals.css';
 const app = createApp(App);
 
 app.use(createPinia());
-app.mount('#app');
-
 registerFeatures();
+
+app.mount('#app');

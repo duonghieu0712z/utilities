@@ -2,12 +2,15 @@
 import type { GroupFeature } from '@/composables/use-features';
 
 import { ChevronRightIcon } from '@lucide/vue';
+import { storeToRefs } from 'pinia';
 
 import { useFeatures } from '@/composables/use-features';
 
 defineProps<GroupFeature>();
 
-const { selectFeature } = useFeatures();
+const featureStore = useFeatures();
+const { selectedGroup, selectedFeature } = storeToRefs(featureStore);
+const { selectFeature } = featureStore;
 </script>
 
 <template>
@@ -26,7 +29,12 @@ const { selectFeature } = useFeatures();
                 <SidebarGroupContent>
                     <SidebarMenu>
                         <SidebarMenuItem v-for="feature in features" :key="feature.name">
-                            <SidebarMenuButton @click="selectFeature(name, feature.name)">
+                            <SidebarMenuButton
+                                :is-active="
+                                    selectedGroup === name && selectedFeature?.name === feature.name
+                                "
+                                @click="selectFeature(name, feature.name)"
+                            >
                                 <component :is="feature.icon" data-icon="inline-start" />
                                 {{ feature.name }}
                             </SidebarMenuButton>

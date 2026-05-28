@@ -80,7 +80,7 @@ async function copyText() {
         </div>
 
         <Textarea
-            class="flex-1 resize-none font-mono"
+            class="font-code flex-1 resize-none"
             :model-value="text"
             name="lorem-ipsum"
             readonly

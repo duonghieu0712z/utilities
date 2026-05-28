@@ -15,16 +15,16 @@
 }
 
 @font-face {
-    font-family: 'GeistMono';
-    src: url('@/assets/fonts/GeistMono/GeistMono[wght].woff2') format('woff2');
+    font-family: 'JetBrainsMono';
+    src: url('@/assets/JetBrainsMono/JetBrainsMono[wght].woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'GeistMono';
-    src: url('@/assets/fonts/GeistMono/GeistMono-Italic[wght].woff2') format('woff2');
+    font-family: 'JetBrainsMono';
+    src: url('@/assets/JetBrainsMono/JetBrainsMono-Italic[wght].woff2') format('woff2');
     font-weight: 100 900;
     font-style: italic;
     font-display: swap;

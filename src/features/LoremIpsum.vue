@@ -37,7 +37,7 @@ async function copyText() {
 </script>
 
 <template>
-    <div class="flex h-full flex-col gap-6 py-8">
+    <div class="flex h-full flex-col gap-6">
         <div class="flex w-full gap-4">
             <InputGroup>
                 <InputGroupInput

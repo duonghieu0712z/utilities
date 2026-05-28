@@ -20,7 +20,7 @@ const { selectedGroup, selectedFeature } = storeToRefs(featureStore);
         </Breadcrumb>
     </header>
 
-    <div class="flex-1 px-12">
+    <div class="flex-1 px-12 py-8">
         <component :is="selectedFeature.view" v-if="selectedFeature" />
     </div>
 </template>

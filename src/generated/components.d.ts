@@ -46,6 +46,7 @@ declare module 'vue' {
     InputGroupInput: typeof import('./../components/ui/input-group/InputGroupInput.vue')['default']
     InputGroupText: typeof import('./../components/ui/input-group/InputGroupText.vue')['default']
     InputGroupTextarea: typeof import('./../components/ui/input-group/InputGroupTextarea.vue')['default']
+    Label: typeof import('./../components/ui/label/Label.vue')['default']
     Separator: typeof import('./../components/ui/separator/Separator.vue')['default']
     Sheet: typeof import('./../components/ui/sheet/Sheet.vue')['default']
     SheetClose: typeof import('./../components/ui/sheet/SheetClose.vue')['default']

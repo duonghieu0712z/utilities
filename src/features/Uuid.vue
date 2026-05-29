@@ -13,9 +13,11 @@ const UUID_GENERATORS = {
 
 const generator = ref<keyof typeof UUID_GENERATORS>('v1');
 const quantity = ref(1);
+
 const uuids = ref<string[]>([]);
-const copied = ref(false);
 const uuidText = computed(() => uuids.value.join('\n'));
+
+const copied = ref(false);
 
 const { copy } = useClipboard();
 const { start: resetCopied } = useTimeoutFn(

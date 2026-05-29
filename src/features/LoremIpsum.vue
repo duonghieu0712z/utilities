@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LoremUnit } from 'lorem-ipsum';
 
-import { ChevronDownIcon, CopyCheckIcon, CopyIcon } from '@lucide/vue';
+import { ChevronDownIcon, CopyCheckIcon, CopyIcon, RefreshCwIcon } from '@lucide/vue';
 import { useClipboard, useTimeoutFn } from '@vueuse/core';
 import { loremIpsum } from 'lorem-ipsum';
 
@@ -40,7 +40,7 @@ onMounted(generateText);
 </script>
 
 <template>
-    <div class="flex h-full flex-col gap-6">
+    <div class="mx-auto flex h-full w-full max-w-2xl flex-col gap-4">
         <div class="flex w-full gap-4">
             <InputGroup>
                 <InputGroupInput v-model.number="count" :min="1" name="count" type="number" />
@@ -72,7 +72,9 @@ onMounted(generateText);
                 </InputGroupAddon>
             </InputGroup>
 
-            <Button variant="outline" @click="generateText">Generate</Button>
+            <Button size="icon" variant="outline" @click="generateText">
+                <RefreshCwIcon />
+            </Button>
             <Button :disabled="!text" size="icon" variant="outline" @click="copyText">
                 <CopyCheckIcon v-if="copied" />
                 <CopyIcon v-else />

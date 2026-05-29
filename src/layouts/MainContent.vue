@@ -19,7 +19,9 @@ watchEffect(() => (themeStore.value = themeState.value));
 <template>
     <header class="flex h-10 shrink-0 items-center border-b px-2">
         <SidebarTrigger />
+
         <Separator class="mx-1 data-[orientation=vertical]:h-8" orientation="vertical" />
+
         <Breadcrumb v-if="selectedGroup && selectedFeature" class="ml-2">
             <BreadcrumbList>
                 <BreadcrumbItem>{{ selectedGroup }}</BreadcrumbItem>
@@ -41,7 +43,18 @@ watchEffect(() => (themeStore.value = themeState.value));
         </Button>
     </header>
 
-    <div class="flex-1 px-12 py-8">
-        <component :is="selectedFeature.view" v-if="selectedFeature" />
+    <div class="flex-1 px-12 pt-4 pb-8">
+        <div v-if="selectedFeature" class="mx-auto flex h-full w-full max-w-2xl flex-col gap-5">
+            <div class="space-y-2">
+                <h1 class="text-3xl font-semibold">{{ selectedFeature.name }}</h1>
+                <p class="text-muted-foreground text-sm">
+                    {{ selectedFeature.description }}
+                </p>
+            </div>
+
+            <Separator />
+
+            <component :is="selectedFeature.view" />
+        </div>
     </div>
 </template>

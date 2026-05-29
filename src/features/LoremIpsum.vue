@@ -40,7 +40,7 @@ onMounted(generateText);
 </script>
 
 <template>
-    <div class="mx-auto flex h-full w-full max-w-2xl flex-col gap-4">
+    <div class="mx-auto flex h-full w-full flex-col gap-4">
         <div class="flex w-full gap-4">
             <InputGroup>
                 <InputGroupInput v-model.number="count" :min="1" name="count" type="number" />

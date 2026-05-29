@@ -6,6 +6,7 @@ import { markRaw, ref } from 'vue';
 
 interface Feature {
     name: string;
+    description: string;
     icon: LucideIcon;
     view: Component;
 }
@@ -23,6 +24,7 @@ export const useFeatures = defineStore('features', () => {
     const registerFeature = (
         groupName: string,
         featureName: string,
+        featureDescription: string,
         icon: LucideIcon,
         view: Component,
     ) => {
@@ -35,7 +37,12 @@ export const useFeatures = defineStore('features', () => {
             return;
         }
 
-        group.features.push({ name: featureName, icon, view: markRaw(view) });
+        group.features.push({
+            name: featureName,
+            description: featureDescription,
+            icon,
+            view: markRaw(view),
+        });
     };
 
     const selectFeature = (groupName: string, featureName: string) => {

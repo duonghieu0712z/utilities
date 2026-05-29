@@ -43,7 +43,7 @@ watchEffect(() => (themeStore.value = themeState.value));
         </Button>
     </header>
 
-    <div class="flex-1 px-12 pt-4 pb-8">
+    <div class="min-h-0 flex-1 overflow-hidden overscroll-none px-12 pt-4 pb-8">
         <div v-if="selectedFeature" class="mx-auto flex h-full w-full max-w-2xl flex-col gap-5">
             <div class="space-y-2">
                 <h1 class="text-3xl font-semibold">{{ selectedFeature.name }}</h1>

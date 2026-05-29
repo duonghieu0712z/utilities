@@ -125,6 +125,12 @@
         @apply border-border outline-ring/50;
     }
 
+    html,
+    body,
+    #app {
+        @apply h-full w-full overflow-hidden overscroll-none;
+    }
+
     html {
         font-synthesis: none;
         text-rendering: optimizeLegibility;
@@ -132,7 +138,8 @@
     }
 
     body {
-        @apply bg-background text-foreground font-ui cursor-default antialiased select-none;
+        @apply bg-background text-foreground font-ui;
+        @apply cursor-default antialiased select-none;
     }
 
     button:not(:disabled),

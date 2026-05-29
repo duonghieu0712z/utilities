@@ -139,6 +139,10 @@
     [role='button']:not(:disabled) {
         @apply cursor-pointer;
     }
+
+    input {
+        @apply appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none;
+    }
 }
 
 @layer utilities {

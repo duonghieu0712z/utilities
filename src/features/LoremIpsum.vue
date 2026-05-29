@@ -22,7 +22,8 @@ const { start: resetCopied } = useTimeoutFn(
 );
 
 function generateText() {
-    text.value = loremIpsum({ count: count.value, units: unit.value });
+    const safeCount = Math.max(1, Math.floor(count.value || 1));
+    text.value = loremIpsum({ count: safeCount, units: unit.value });
 }
 
 async function copyText() {
@@ -34,19 +35,15 @@ async function copyText() {
     copied.value = true;
     resetCopied();
 }
+
+onMounted(generateText);
 </script>
 
 <template>
     <div class="flex h-full flex-col gap-6">
         <div class="flex w-full gap-4">
             <InputGroup>
-                <InputGroupInput
-                    v-model.number="count"
-                    class="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                    min="1"
-                    name="count"
-                    type="number"
-                />
+                <InputGroupInput v-model.number="count" :min="1" name="count" type="number" />
                 <InputGroupAddon align="inline-end" class="-mr-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger as="div">

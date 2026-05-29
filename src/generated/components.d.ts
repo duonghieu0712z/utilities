@@ -83,6 +83,7 @@ declare module 'vue' {
     SidebarTrigger: typeof import('./../components/ui/sidebar/SidebarTrigger.vue')['default']
     Skeleton: typeof import('./../components/ui/skeleton/Skeleton.vue')['default']
     Textarea: typeof import('./../components/ui/textarea/Textarea.vue')['default']
+    Toggle: typeof import('./../components/ui/toggle/Toggle.vue')['default']
     Tooltip: typeof import('./../components/ui/tooltip/Tooltip.vue')['default']
     TooltipContent: typeof import('./../components/ui/tooltip/TooltipContent.vue')['default']
     TooltipProvider: typeof import('./../components/ui/tooltip/TooltipProvider.vue')['default']

@@ -110,10 +110,11 @@ watch([text, encoding], () => void generateHashes(), { immediate: true });
         />
 
         <div class="grid w-full grid-cols-[120px_minmax(0,1fr)] items-center gap-4">
-            <Label class="justify-self-start">Encoding</Label>
+            <Label class="justify-self-start" for="encoding">Encoding</Label>
             <div class="grid w-full auto-cols-fr grid-flow-col gap-2">
                 <Toggle
                     v-for="outputEncoding in OUTPUT_ENCODINGS"
+                    id="encoding"
                     :key="outputEncoding"
                     class="w-full"
                     :model-value="encoding === outputEncoding"

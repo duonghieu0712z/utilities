@@ -109,10 +109,11 @@ onMounted(generateUuid);
 <template>
     <div class="mx-auto grid w-full max-w-lg gap-4">
         <div class="grid w-full grid-cols-[120px_minmax(0,1fr)] items-center gap-4">
-            <Label class="justify-self-start">UUID version</Label>
+            <Label class="justify-self-start" for="version">UUID version</Label>
             <div class="grid w-full auto-cols-fr grid-flow-col gap-2">
                 <Toggle
                     v-for="(_, key) in UUID_GENERATORS"
+                    id="version"
                     :key="key"
                     class="w-full"
                     :model-value="generator === key"
@@ -138,8 +139,14 @@ onMounted(generateUuid);
 
         <template v-if="requiresNamespace">
             <div class="grid w-full grid-cols-[120px_minmax(0,1fr)] items-center gap-4">
-                <Label for="name">Name</Label>
-                <Input id="name" v-model="name" name="name" type="text" @input="generateUuid" />
+                <Label for="name-value">Name</Label>
+                <Input
+                    id="name-value"
+                    v-model="name"
+                    name="name-value"
+                    type="text"
+                    @input="generateUuid"
+                />
             </div>
 
             <div class="grid w-full grid-cols-[120px_minmax(0,1fr)] items-center gap-4">
@@ -147,6 +154,7 @@ onMounted(generateUuid);
                 <div class="grid w-full auto-cols-fr grid-flow-col gap-2">
                     <Toggle
                         v-for="(_, key) in NAMESPACE_OPTIONS"
+                        id="namespace"
                         :key="key"
                         class="w-full"
                         :model-value="namespace === key"
@@ -178,6 +186,7 @@ onMounted(generateUuid);
         </template>
 
         <Textarea
+            id="uuid"
             class="scrollbar font-code h-52 w-full resize-none text-center"
             :model-value="uuidText"
             readonly

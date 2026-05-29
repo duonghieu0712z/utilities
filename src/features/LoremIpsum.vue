@@ -50,7 +50,10 @@ async function copyText() {
                 <InputGroupAddon align="inline-end" class="-mr-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger as="div">
-                            <Button class="justify-end" variant="ghost">
+                            <Button
+                                class="justify-end hover:bg-transparent dark:hover:bg-transparent"
+                                variant="ghost"
+                            >
                                 {{ unit }}
                                 <ChevronDownIcon />
                             </Button>
@@ -80,7 +83,7 @@ async function copyText() {
         </div>
 
         <Textarea
-            class="font-code flex-1 resize-none"
+            class="font-code scrollbar flex-1 resize-none"
             :model-value="text"
             name="lorem-ipsum"
             readonly

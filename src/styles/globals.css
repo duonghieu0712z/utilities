@@ -12,27 +12,6 @@
     --font-code: 'JetBrainsMono', var(--font-mono);
 }
 
-@layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-
-    html {
-        font-synthesis: none;
-        text-rendering: optimizeLegibility;
-        -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-        @apply bg-background text-foreground font-ui cursor-default antialiased select-none;
-    }
-
-    button:not(:disabled),
-    [role='button']:not(:disabled) {
-        @apply cursor-pointer;
-    }
-}
-
 @theme inline {
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -145,7 +124,28 @@
     * {
         @apply border-border outline-ring/50;
     }
+
+    html {
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+    }
+
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground font-ui cursor-default antialiased select-none;
+    }
+
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        @apply cursor-pointer;
+    }
+}
+
+@layer utilities {
+    .scrollbar {
+        @apply [&::-webkit-scrollbar]:w-1.5;
+        @apply [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-clip-content;
+        @apply [&::-webkit-scrollbar-thumb]:bg-input [&::-webkit-scrollbar-thumb:hover]:bg-ring;
+        @apply [&::-webkit-scrollbar-track]:bg-transparent;
     }
 }

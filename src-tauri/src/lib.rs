@@ -15,9 +15,7 @@ pub fn run() {
             .unwrap();
     }
 
-    let builder = tauri::Builder::default()
-        .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_prevent_default::debug());
+    let builder = tauri::Builder::default().plugin(tauri_plugin_prevent_default::debug());
 
     #[cfg(debug_assertions)]
     let builder = builder.plugin(tauri_plugin_devtools::init());

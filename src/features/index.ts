@@ -1,7 +1,8 @@
-import { ALargeSmallIcon, FingerprintIcon } from '@lucide/vue';
+import { ALargeSmallIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
 
 import { useFeatures } from '@/composables/use-features';
 
+import Hash from './Hash.vue';
 import LoremIpsum from './LoremIpsum.vue';
 import Uuid from './Uuid.vue';
 
@@ -21,5 +22,12 @@ export function registerFeatures() {
         'Generate UUID values across standard versions, including namespace-based UUIDs.',
         FingerprintIcon,
         Uuid,
+    );
+    registerFeature(
+        'Crypto',
+        'Hash',
+        'Generate message digests from text input in Hex, Base64, or Base64url.',
+        HashIcon,
+        Hash,
     );
 }

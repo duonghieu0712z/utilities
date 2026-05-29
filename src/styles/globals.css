@@ -155,8 +155,9 @@
 @layer utilities {
     .scrollbar {
         @apply [&::-webkit-scrollbar]:w-1.5;
-        @apply [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-clip-content;
-        @apply [&::-webkit-scrollbar-thumb]:bg-input [&::-webkit-scrollbar-thumb:hover]:bg-ring;
         @apply [&::-webkit-scrollbar-track]:bg-transparent;
+        @apply [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border;
+        @apply [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-clip-content;
+        @apply [&::-webkit-scrollbar-thumb]:bg-input [&::-webkit-scrollbar-thumb:hover]:bg-ring;
     }
 }

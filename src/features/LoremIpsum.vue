@@ -26,6 +26,11 @@ function generateText() {
     text.value = loremIpsum({ count: safeCount, units: unit.value });
 }
 
+function selectUnit(value: LoremUnit) {
+    unit.value = value;
+    generateText();
+}
+
 async function copyText() {
     if (!text.value) {
         return;
@@ -43,7 +48,13 @@ onMounted(generateText);
     <div class="mx-auto flex h-full w-full flex-col gap-4">
         <div class="flex w-full gap-4">
             <InputGroup>
-                <InputGroupInput v-model.number="count" :min="1" name="count" type="number" />
+                <InputGroupInput
+                    v-model.number="count"
+                    :min="1"
+                    name="count"
+                    type="number"
+                    @input="generateText"
+                />
                 <InputGroupAddon align="inline-end" class="-mr-2">
                     <DropdownMenu>
                         <DropdownMenuTrigger as="div">
@@ -62,7 +73,11 @@ onMounted(generateText);
                                 spacing="spaced"
                             >
                                 <DropdownMenuItem v-for="units in UNITS" :key="units" class="p-0">
-                                    <Button class="w-full" variant="ghost" @click="unit = units">
+                                    <Button
+                                        class="w-full"
+                                        variant="ghost"
+                                        @click="selectUnit(units)"
+                                    >
                                         {{ units }}
                                     </Button>
                                 </DropdownMenuItem>
@@ -82,7 +97,7 @@ onMounted(generateText);
         </div>
 
         <Textarea
-            class="font-code scrollbar flex-1 resize-none"
+            class="font-code scrollbar field-sizing-fixed flex-1 resize-none"
             :model-value="text"
             name="lorem-ipsum"
             readonly

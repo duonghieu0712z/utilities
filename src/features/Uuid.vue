@@ -25,7 +25,7 @@ const NAMESPACE_OPTIONS = {
     Custom: '',
 };
 
-const generator = ref<keyof typeof UUID_GENERATORS>('v1');
+const generator = ref<keyof typeof UUID_GENERATORS>('v4');
 const quantity = ref(1);
 const name = ref('');
 const namespace = ref<keyof typeof NAMESPACE_OPTIONS>('DNS');

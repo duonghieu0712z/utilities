@@ -1,10 +1,9 @@
-use tauri_specta::Builder;
-
 mod command;
+mod config;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let specta_builder = Builder::<tauri::Wry>::new().commands(command::commands());
+    let specta_builder = tauri_specta::Builder::<tauri::Wry>::new().commands(command::commands());
 
     #[cfg(all(debug_assertions, not(mobile)))]
     {
@@ -38,13 +37,17 @@ pub fn run() {
 
     builder
         .invoke_handler(specta_builder.invoke_handler())
-        .setup(|_app| {
+        .setup(|app| {
+            let handle = app.handle();
+            config::create_tray(&handle)?;
+
             #[cfg(debug_assertions)]
             {
                 use tauri::Manager;
 
-                _app.get_webview_window("main").unwrap().open_devtools();
+                app.get_webview_window("main").unwrap().open_devtools();
             }
+
             Ok(())
         })
         .run(tauri::generate_context!())

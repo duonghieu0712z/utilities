@@ -45,9 +45,9 @@ fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
         } => {
             let app = tray.app_handle();
             if let Some(window) = app.get_webview_window("main") {
-                let _ = window.unminimize();
-                let _ = window.show();
-                let _ = window.set_focus();
+                window.unminimize().unwrap();
+                window.show().unwrap();
+                window.set_focus().unwrap();
             }
         }
         _ => log::debug!("Tray unhandled event {event:?}"),

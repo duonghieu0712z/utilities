@@ -50,6 +50,7 @@ pub fn run() {
 
             Ok(())
         })
+        .on_window_event(config::handle_window_event)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

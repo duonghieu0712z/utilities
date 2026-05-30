@@ -130,7 +130,7 @@ watch([text, encoding], () => void generateHashes(), { immediate: true });
             <div
                 v-for="result in results"
                 :key="result.algorithm"
-                class="border-input grid h-10 grid-cols-[88px_minmax(0,1fr)_32px] items-center gap-3 rounded-sm border px-1"
+                class="border-input grid min-h-0 grid-cols-[88px_minmax(0,1fr)_32px] items-center gap-3 rounded-[10px] border p-1"
             >
                 <span
                     class="bg-muted text-muted-foreground rounded-sm px-2 py-1 text-center text-sm font-medium"

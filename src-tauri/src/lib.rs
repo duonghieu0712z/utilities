@@ -39,7 +39,7 @@ pub fn run() {
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app| {
             let handle = app.handle();
-            config::create_tray(&handle)?;
+            config::create_tray(handle)?;
 
             #[cfg(debug_assertions)]
             {

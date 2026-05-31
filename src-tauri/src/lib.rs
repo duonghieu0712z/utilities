@@ -1,5 +1,5 @@
+mod app;
 mod command;
-mod config;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -39,18 +39,22 @@ pub fn run() {
         .invoke_handler(specta_builder.invoke_handler())
         .setup(|app| {
             let handle = app.handle();
-            config::create_tray(handle)?;
+            app::create_tray(handle)?;
 
             #[cfg(debug_assertions)]
             {
                 use tauri::Manager;
 
-                app.get_webview_window("main").unwrap().open_devtools();
+                if let Some(window) = app.get_webview_window("main") {
+                    window.open_devtools();
+                } else {
+                    log::error!("Main window not found");
+                }
             }
 
             Ok(())
         })
-        .on_window_event(config::handle_window_event)
+        .on_window_event(app::handle_window_event)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

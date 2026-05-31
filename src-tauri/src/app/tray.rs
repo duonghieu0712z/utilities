@@ -6,7 +6,10 @@ use tauri::{
 
 pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
     let name = &app.package_info().name;
-    let icon = app.default_window_icon().unwrap().clone();
+    let icon = app
+        .default_window_icon()
+        .expect("default window icon must be configured")
+        .clone();
     let menu = create_tray_menu(app)?;
 
     let tray = TrayIconBuilder::new()
@@ -45,9 +48,17 @@ fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
         } => {
             let app = tray.app_handle();
             if let Some(window) = app.get_webview_window("main") {
-                window.unminimize().unwrap();
-                window.show().unwrap();
-                window.set_focus().unwrap();
+                if let Err(error) = window.unminimize() {
+                    log::error!("Failed to unminimize window: {error}");
+                }
+
+                if let Err(error) = window.show() {
+                    log::error!("Failed to show window: {error}");
+                }
+
+                if let Err(error) = window.set_focus() {
+                    log::error!("Failed to focus window: {error}");
+                }
             }
         }
         _ => log::debug!("Tray unhandled event {event:?}"),

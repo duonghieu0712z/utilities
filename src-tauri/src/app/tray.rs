@@ -4,7 +4,7 @@ use tauri::{
     tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent},
 };
 
-pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
+pub fn create_tray(app: &AppHandle) -> Result<()> {
     let name = &app.package_info().name;
     let icon = app
         .default_window_icon()
@@ -12,7 +12,7 @@ pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
         .clone();
     let menu = create_tray_menu(app)?;
 
-    let tray = TrayIconBuilder::new()
+    TrayIconBuilder::new()
         .icon(icon)
         .icon_as_template(true)
         .tooltip(name)
@@ -22,11 +22,12 @@ pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
         .on_tray_icon_event(handle_tray_event)
         .build(app)?;
 
-    Ok(tray)
+    Ok(())
 }
 
 fn create_tray_menu(app: &AppHandle) -> Result<Menu<Wry>> {
-    let quit = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+    let name = &app.package_info().name;
+    let quit = MenuItem::with_id(app, "quit", format!("Quit {name}"), true, None::<&str>)?;
     let menu = Menu::with_items(app, &[&quit])?;
 
     Ok(menu)

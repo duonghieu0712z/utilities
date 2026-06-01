@@ -40,6 +40,7 @@ pub fn run() {
         .setup(|app| {
             let handle = app.handle();
             app::create_tray(handle)?;
+            app::create_menu(handle)?;
 
             #[cfg(debug_assertions)]
             {

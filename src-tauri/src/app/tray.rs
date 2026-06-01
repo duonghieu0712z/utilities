@@ -14,7 +14,7 @@ pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
 
     let tray = TrayIconBuilder::new()
         .icon(icon)
-        .title(name)
+        .icon_as_template(true)
         .tooltip(name)
         .menu(&menu)
         .show_menu_on_left_click(false)
@@ -47,6 +47,7 @@ fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
             ..
         } => {
             let app = tray.app_handle();
+
             if let Some(window) = app.get_webview_window("main") {
                 if let Err(error) = window.unminimize() {
                     log::error!("Failed to unminimize window: {error}");

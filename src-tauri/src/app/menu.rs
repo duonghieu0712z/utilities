@@ -31,7 +31,7 @@ fn create_app_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
     let name = &app.package_info().name;
     let menu = SubmenuBuilder::new(app, name)
         .about_with_text(format!("About {name}"), Some(create_about_metadata()?))
-        .text("updates", "Check for Updates...")
+        .item(&create_updates_menu_item(app)?)
         .separator()
         .item(&create_settings_menu_item(app)?)
         .separator()
@@ -98,7 +98,7 @@ fn create_help_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
     let name = &app.package_info().name;
     let menu = SubmenuBuilder::new(app, "Help")
         .about_with_text(format!("About {name}"), Some(create_about_metadata()?))
-        .text("updates", "Check for Updates...")
+        .item(&create_updates_menu_item(app)?)
         .separator()
         .item(&create_settings_menu_item(app)?)
         .separator()
@@ -118,7 +118,11 @@ fn create_about_metadata() -> Result<AboutMetadata<'static>> {
     Ok(about)
 }
 
-fn create_settings_menu_item(app: &AppHandle) -> Result<MenuItem<Wry>> {
+pub(super) fn create_updates_menu_item(app: &AppHandle) -> Result<MenuItem<Wry>> {
+    MenuItemBuilder::with_id("updates", "Check for Updates...").build(app)
+}
+
+pub(super) fn create_settings_menu_item(app: &AppHandle) -> Result<MenuItem<Wry>> {
     MenuItemBuilder::with_id("settings", "Settings...")
         .accelerator("CmdOrCtrl+,")
         .build(app)

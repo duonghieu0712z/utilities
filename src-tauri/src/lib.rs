@@ -56,6 +56,7 @@ pub fn run() {
             Ok(())
         })
         .on_window_event(app::handle_window_event)
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while running tauri application")
+        .run(app::handle_run_event);
 }

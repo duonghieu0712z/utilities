@@ -1,10 +1,13 @@
 use tauri::{
-    AppHandle, Manager, Result, Wry,
+    AppHandle, Result, Wry,
     menu::{Menu, MenuBuilder},
     tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent},
 };
 
-use super::menu::{create_settings_menu_item, create_updates_menu_item};
+use super::{
+    event::restore_main_window,
+    menu::{create_settings_menu_item, create_updates_menu_item},
+};
 
 pub fn create_tray(app: &AppHandle) -> Result<()> {
     let name = &app.package_info().name;
@@ -46,20 +49,7 @@ fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
             ..
         } => {
             let app = tray.app_handle();
-
-            if let Some(window) = app.get_webview_window("main") {
-                if let Err(error) = window.unminimize() {
-                    log::error!("Failed to unminimize window: {error}");
-                }
-
-                if let Err(error) = window.show() {
-                    log::error!("Failed to show window: {error}");
-                }
-
-                if let Err(error) = window.set_focus() {
-                    log::error!("Failed to focus window: {error}");
-                }
-            }
+            restore_main_window(app);
         }
         _ => log::debug!("Tray unhandled event {event:?}"),
     }

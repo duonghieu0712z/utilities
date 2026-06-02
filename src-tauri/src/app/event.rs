@@ -2,6 +2,7 @@ use tauri::{AppHandle, Manager, RunEvent};
 
 pub fn handle_run_event(app: &AppHandle, event: RunEvent) {
     match event {
+        #[cfg(target_os = "macos")]
         RunEvent::Reopen { .. } => restore_main_window(app),
         _ => {}
     }

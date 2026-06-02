@@ -2,8 +2,8 @@ use tauri::{
     AppHandle, Result, Wry,
     image::Image,
     menu::{
-        AboutMetadata, AboutMetadataBuilder, HELP_SUBMENU_ID, MenuBuilder, MenuEvent, MenuItem,
-        MenuItemBuilder, PredefinedMenuItem, Submenu, SubmenuBuilder, WINDOW_SUBMENU_ID,
+        AboutMetadata, AboutMetadataBuilder, MenuBuilder, MenuEvent, MenuItem, MenuItemBuilder,
+        PredefinedMenuItem, Submenu, SubmenuBuilder, WINDOW_SUBMENU_ID,
     },
 };
 
@@ -86,6 +86,8 @@ fn create_window_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
 
 #[cfg(target_os = "macos")]
 fn create_help_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
+    use tauri::menu::HELP_SUBMENU_ID;
+
     let menu = SubmenuBuilder::new(app, "Help")
         .id(HELP_SUBMENU_ID)
         .build()?;

@@ -1,10 +1,15 @@
 use tauri::{
-    AppHandle, Manager, Result, Wry,
-    menu::{Menu, MenuEvent, MenuItem},
+    AppHandle, Result, Wry,
+    menu::{Menu, MenuBuilder},
     tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent},
 };
 
-pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
+use super::{
+    event::restore_main_window,
+    menu::{create_settings_menu_item, create_updates_menu_item},
+};
+
+pub fn create_tray(app: &AppHandle) -> Result<()> {
     let name = &app.package_info().name;
     let icon = app
         .default_window_icon()
@@ -12,31 +17,28 @@ pub fn create_tray(app: &AppHandle) -> Result<TrayIcon> {
         .clone();
     let menu = create_tray_menu(app)?;
 
-    let tray = TrayIconBuilder::new()
+    TrayIconBuilder::new()
         .icon(icon)
-        .title(name)
+        .icon_as_template(true)
         .tooltip(name)
         .menu(&menu)
         .show_menu_on_left_click(false)
-        .on_menu_event(handle_menu_event)
         .on_tray_icon_event(handle_tray_event)
         .build(app)?;
 
-    Ok(tray)
+    Ok(())
 }
 
 fn create_tray_menu(app: &AppHandle) -> Result<Menu<Wry>> {
-    let quit = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
-    let menu = Menu::with_items(app, &[&quit])?;
+    let name = &app.package_info().name;
+    let menu = MenuBuilder::new(app)
+        .item(&create_updates_menu_item(app)?)
+        .item(&create_settings_menu_item(app)?)
+        .separator()
+        .quit_with_text(format!("Quit {name}"))
+        .build()?;
 
     Ok(menu)
-}
-
-fn handle_menu_event(app: &AppHandle, event: MenuEvent) {
-    match event.id.as_ref() {
-        "quit" => app.exit(0),
-        _ => log::debug!("Tray menu item {:?} not handled", event.id),
-    }
 }
 
 fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
@@ -47,19 +49,7 @@ fn handle_tray_event(tray: &TrayIcon, event: TrayIconEvent) {
             ..
         } => {
             let app = tray.app_handle();
-            if let Some(window) = app.get_webview_window("main") {
-                if let Err(error) = window.unminimize() {
-                    log::error!("Failed to unminimize window: {error}");
-                }
-
-                if let Err(error) = window.show() {
-                    log::error!("Failed to show window: {error}");
-                }
-
-                if let Err(error) = window.set_focus() {
-                    log::error!("Failed to focus window: {error}");
-                }
-            }
+            restore_main_window(app);
         }
         _ => log::debug!("Tray unhandled event {event:?}"),
     }

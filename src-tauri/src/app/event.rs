@@ -1,12 +1,15 @@
 use tauri::{AppHandle, Manager, RunEvent};
 
+#[cfg(target_os = "macos")]
 pub fn handle_run_event(app: &AppHandle, event: RunEvent) {
     match event {
-        #[cfg(target_os = "macos")]
         RunEvent::Reopen { .. } => restore_main_window(app),
         _ => {}
     }
 }
+
+#[cfg(not(target_os = "macos"))]
+pub fn handle_run_event(_: &AppHandle, _: RunEvent) {}
 
 pub(super) fn restore_main_window(app: &AppHandle) {
     if let Some(window) = app.get_webview_window("main") {

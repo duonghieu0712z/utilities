@@ -1,4 +1,6 @@
-use tauri::{Manager, Window, WindowEvent};
+#[cfg(target_os = "macos")]
+use tauri::Manager;
+use tauri::{Window, WindowEvent};
 
 pub fn handle_window_event(window: &Window, event: &WindowEvent) {
     match event {

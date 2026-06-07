@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { AppLayout } from '@/layouts';
+import { AppShell } from '@/layouts/app-shell';
 </script>
 
 <template>
-    <AppLayout />
+    <AppShell />
 </template>

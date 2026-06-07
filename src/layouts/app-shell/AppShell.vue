@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import AppContent from './AppContent.vue';
 import AppSidebar from './AppSidebar.vue';
-import MainContent from './MainContent.vue';
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import MainContent from './MainContent.vue';
         <AppSidebar />
 
         <SidebarInset>
-            <MainContent />
+            <AppContent />
         </SidebarInset>
     </SidebarProvider>
 </template>

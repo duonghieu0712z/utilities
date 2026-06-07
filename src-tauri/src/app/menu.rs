@@ -30,7 +30,7 @@ pub fn create_menu(app: &AppHandle) -> Result<()> {
 fn create_app_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
     let name = &app.package_info().name;
     let menu = SubmenuBuilder::new(app, name)
-        .about_with_text(format!("About {name}"), Some(create_about_metadata()?))
+        .about_with_text(format!("About {name}"), Some(create_about_metadata(app)?))
         .item(&create_updates_menu_item(app)?)
         .separator()
         .item(&create_settings_menu_item(app)?)
@@ -99,7 +99,7 @@ fn create_help_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
 fn create_help_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
     let name = &app.package_info().name;
     let menu = SubmenuBuilder::new(app, "Help")
-        .about_with_text(format!("About {name}"), Some(create_about_metadata()?))
+        .about_with_text(format!("About {name}"), Some(create_about_metadata(app)?))
         .item(&create_updates_menu_item(app)?)
         .separator()
         .item(&create_settings_menu_item(app)?)
@@ -110,12 +110,18 @@ fn create_help_menu(app: &AppHandle) -> Result<Submenu<Wry>> {
     Ok(menu)
 }
 
-fn create_about_metadata() -> Result<AboutMetadata<'static>> {
+fn create_about_metadata(app: &AppHandle) -> Result<AboutMetadata<'static>> {
     let icon = Image::from_bytes(include_bytes!(concat!(
         env!("CARGO_MANIFEST_DIR"),
         "/icons/icon.png"
     )))?;
-    let about = AboutMetadataBuilder::new().icon(Some(icon)).build();
+    let name = app.package_info().name.clone();
+    let version = app.package_info().version.to_string();
+    let about = AboutMetadataBuilder::new()
+        .name(Some(name))
+        .version(Some(version))
+        .icon(Some(icon))
+        .build();
 
     Ok(about)
 }

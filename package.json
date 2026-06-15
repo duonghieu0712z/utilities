@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "description": "The Utilities App",
+    "license": "MIT",
     "author": "duonghieu0712z",
     "type": "module",
     "scripts": {

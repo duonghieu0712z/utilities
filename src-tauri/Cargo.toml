@@ -2,6 +2,7 @@
 name = "utilities"
 version = "0.0.1"
 description = "The Utilities App"
+license = "MIT"
 authors = ["duonghieu0712z"]
 edition = "2024"
 

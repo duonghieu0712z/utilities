@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { CopyCheckIcon, CopyIcon, RefreshCwIcon } from '@lucide/vue';
-import { useClipboard, useTimeoutFn } from '@vueuse/core';
 import { NIL, v1, v3, v4, v5, v6, v7, validate } from 'uuid';
+
+import { useClipboardCopy } from '@/composables/use-clipboard-copy';
 
 const UUID_GENERATORS = {
     NIL: () => NIL,
@@ -42,16 +43,7 @@ const namespaceError = computed(() => {
     return 'Namespace must be a valid UUID.';
 });
 
-const copied = ref(false);
-
-const { copy } = useClipboard();
-const { start: resetCopied } = useTimeoutFn(
-    () => {
-        copied.value = false;
-    },
-    800,
-    { immediate: false },
-);
+const { copied, copy } = useClipboardCopy();
 
 function generateUuid() {
     const safeQuantity = Math.max(1, Math.floor(quantity.value || 1));
@@ -94,13 +86,7 @@ function selectNamespace(value: keyof typeof NAMESPACE_OPTIONS, selected: boolea
 }
 
 async function copyUuid() {
-    if (!uuidText.value) {
-        return;
-    }
-
     await copy(uuidText.value);
-    copied.value = true;
-    resetCopied();
 }
 
 onMounted(generateUuid);

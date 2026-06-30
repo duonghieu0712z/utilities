@@ -2,24 +2,16 @@
 import type { LoremUnit } from 'lorem-ipsum';
 
 import { ChevronDownIcon, CopyCheckIcon, CopyIcon, RefreshCwIcon } from '@lucide/vue';
-import { useClipboard, useTimeoutFn } from '@vueuse/core';
 import { loremIpsum } from 'lorem-ipsum';
+
+import { useClipboardCopy } from '@/composables/use-clipboard-copy';
 
 const UNITS: LoremUnit[] = ['paragraphs', 'sentences', 'words'];
 
 const count = ref(5);
 const unit = ref<LoremUnit>('paragraphs');
 const text = ref('');
-const copied = ref(false);
-
-const { copy } = useClipboard();
-const { start: resetCopied } = useTimeoutFn(
-    () => {
-        copied.value = false;
-    },
-    800,
-    { immediate: false },
-);
+const { copied, copy } = useClipboardCopy();
 
 function generateText() {
     const safeCount = Math.max(1, Math.floor(count.value || 1));
@@ -32,13 +24,7 @@ function selectUnit(value: LoremUnit) {
 }
 
 async function copyText() {
-    if (!text.value) {
-        return;
-    }
-
     await copy(text.value);
-    copied.value = true;
-    resetCopied();
 }
 
 onMounted(generateText);

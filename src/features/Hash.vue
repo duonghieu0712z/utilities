@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CopyCheckIcon, CopyIcon } from '@lucide/vue';
-import { useClipboard, useTimeoutFn } from '@vueuse/core';
+
+import { useClipboardCopy } from '@/composables/use-clipboard-copy';
 
 const HASH_ALGORITHMS = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const;
 const OUTPUT_ENCODINGS = ['Hex', 'Base64', 'Base64url'] as const;
@@ -16,17 +17,8 @@ interface HashResult {
 const text = ref('');
 const encoding = ref<OutputEncoding>('Hex');
 const results = ref<HashResult[]>([]);
-const copiedAlgorithm = ref<HashAlgorithm>();
+const { copied: copiedAlgorithm, copy } = useClipboardCopy<HashAlgorithm | undefined>(undefined);
 let generation = 0;
-
-const { copy } = useClipboard();
-const { start: resetCopied } = useTimeoutFn(
-    () => {
-        copiedAlgorithm.value = undefined;
-    },
-    800,
-    { immediate: false },
-);
 
 async function digestNative(algorithm: AlgorithmIdentifier, data: Uint8Array) {
     const buffer = new ArrayBuffer(data.byteLength);
@@ -91,9 +83,7 @@ function selectEncoding(value: OutputEncoding, selected: boolean) {
 }
 
 async function copyHash(result: HashResult) {
-    await copy(result.value);
-    copiedAlgorithm.value = result.algorithm;
-    resetCopied();
+    await copy(result.value, result.algorithm);
 }
 
 watch([text, encoding], () => void generateHashes(), { immediate: true });

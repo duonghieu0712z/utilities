@@ -15,7 +15,7 @@ const { selectFeature } = featureStore;
 
 <template>
     <Collapsible class="group/collapsible" default-open>
-        <SidebarGroup>
+        <SidebarGroup class="p-1">
             <SidebarGroupLabel as-child>
                 <CollapsibleTrigger>
                     {{ name }}

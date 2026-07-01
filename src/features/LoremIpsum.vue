@@ -32,7 +32,7 @@ onMounted(generateText);
 
 <template>
     <div class="mx-auto flex min-h-0 w-full flex-1 flex-col gap-4">
-        <div class="flex w-full shrink-0 gap-4">
+        <div class="flex w-full shrink-0 gap-2">
             <InputGroup>
                 <InputGroupInput
                     v-model.number="count"

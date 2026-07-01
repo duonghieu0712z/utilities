@@ -36,20 +36,20 @@ function randomIndex(size: number) {
 
     do {
         crypto.getRandomValues(bytes);
-    } while (bytes[0] >= limit);
+    } while (bytes[0]! >= limit);
 
-    return bytes[0] % size;
+    return bytes[0]! % size;
 }
 
 function pickCharacter(characters: string) {
-    return characters[randomIndex(characters.length)];
+    return characters[randomIndex(characters.length)]!;
 }
 
 function shuffleCharacters(characters: string[]) {
     for (let index = characters.length - 1; index > 0; index -= 1) {
         const swapIndex = randomIndex(index + 1);
-        const current = characters[index];
-        characters[index] = characters[swapIndex];
+        const current = characters[index]!;
+        characters[index] = characters[swapIndex]!;
         characters[swapIndex] = current;
     }
 
@@ -58,12 +58,12 @@ function shuffleCharacters(characters: string[]) {
 
 function generateOneString(targetLength: number) {
     const sets = activeSets.value;
-    const pool = sets.map((set) => CHARACTER_SETS[set]).join('');
+    const pool = sets.map((set) => CHARACTER_SETS[set]!).join('');
     const characters: string[] = [];
 
     if (targetLength >= sets.length) {
         for (const set of sets) {
-            characters.push(pickCharacter(CHARACTER_SETS[set]));
+            characters.push(pickCharacter(CHARACTER_SETS[set]!));
         }
     }
 

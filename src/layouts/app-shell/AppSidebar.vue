@@ -8,7 +8,7 @@ const { featureGroups } = useFeatures();
 
 <template>
     <Sidebar>
-        <SidebarContent>
+        <SidebarContent class="gap-0">
             <FeatureGroup
                 v-for="group in featureGroups"
                 :key="group.name"

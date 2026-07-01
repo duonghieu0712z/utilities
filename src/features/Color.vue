@@ -11,7 +11,9 @@ type ColorFormat = {
     value: string;
 };
 
-const input = ref('');
+const DEFAULT_COLOR = '#3b82f6';
+
+const input = ref(DEFAULT_COLOR);
 const copiedValue = ref('');
 const { copied, copy } = useClipboardCopy();
 
@@ -64,7 +66,7 @@ const errorMessage = computed(() => {
 const pickerColor = computed({
     get() {
         if (!parsedColor.value) {
-            return '#3b82f6';
+            return DEFAULT_COLOR;
         }
 
         return formatHex(clampRgb(toRgb(parsedColor.value)));

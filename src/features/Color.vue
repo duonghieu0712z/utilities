@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Color } from 'culori';
+import type { Color, Lab, Lch, Oklab, Oklch } from 'culori';
 
 import { CopyCheckIcon, CopyIcon, PaletteIcon } from '@lucide/vue';
 import { clampRgb, converter, formatHex, formatHex8, formatHsl, formatRgb, parse } from 'culori';
@@ -94,20 +94,20 @@ function formatAlpha(color: Color) {
     return ` / ${formatNumber(color.alpha, 3)}`;
 }
 
-function formatOklab(color: Color) {
-    return `oklab(${formatPercent(color.l as number)} ${formatNumber(color.a as number)} ${formatNumber(color.b as number)}${formatAlpha(color)})`;
+function formatOklab(color: Oklab) {
+    return `oklab(${formatPercent(color.l)} ${formatNumber(color.a)} ${formatNumber(color.b)}${formatAlpha(color)})`;
 }
 
-function formatOklch(color: Color) {
-    return `oklch(${formatPercent(color.l as number)} ${formatNumber(color.c as number)} ${formatHue(color.h as number)}${formatAlpha(color)})`;
+function formatOklch(color: Oklch) {
+    return `oklch(${formatPercent(color.l)} ${formatNumber(color.c)} ${formatHue(color.h)}${formatAlpha(color)})`;
 }
 
-function formatLab(color: Color) {
-    return `lab(${formatNumber(color.l as number, 2)}% ${formatNumber(color.a as number)} ${formatNumber(color.b as number)}${formatAlpha(color)})`;
+function formatLab(color: Lab) {
+    return `lab(${formatNumber(color.l, 2)}% ${formatNumber(color.a)} ${formatNumber(color.b)}${formatAlpha(color)})`;
 }
 
-function formatLch(color: Color) {
-    return `lch(${formatNumber(color.l as number, 2)}% ${formatNumber(color.c as number)} ${formatHue(color.h as number)}${formatAlpha(color)})`;
+function formatLch(color: Lch) {
+    return `lch(${formatNumber(color.l, 2)}% ${formatNumber(color.c)} ${formatHue(color.h)}${formatAlpha(color)})`;
 }
 
 async function copyColor(value: string) {

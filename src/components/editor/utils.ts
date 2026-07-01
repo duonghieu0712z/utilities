@@ -63,6 +63,9 @@ export function getThemeExtensions(dark: boolean) {
             color: 'var(--muted-foreground)',
         },
         '.cm-activeLine, .cm-activeLineGutter': {
+            backgroundColor: 'transparent',
+        },
+        '&.cm-focused .cm-activeLine, &.cm-focused .cm-activeLineGutter': {
             backgroundColor: subtleBackground,
         },
         '.cm-placeholder': {

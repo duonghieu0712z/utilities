@@ -5,6 +5,7 @@ import {
     FingerprintIcon,
     HashIcon,
     KeyRoundIcon,
+    LinkIcon,
 } from '@lucide/vue';
 
 import { useFeatures } from '@/composables/use-features';
@@ -14,6 +15,7 @@ import Hash from './Hash.vue';
 import Json from './Json.vue';
 import LoremIpsum from './LoremIpsum.vue';
 import RandomString from './RandomString.vue';
+import Url from './Url.vue';
 import Uuid from './Uuid.vue';
 
 export function registerFeatures() {
@@ -48,6 +50,7 @@ export function registerFeatures() {
         Hash,
     );
     registerFeature('Codec', 'Base64', 'Encode and decode Base64 text.', BinaryIcon, Base64);
+    registerFeature('Codec', 'URL', 'Encode and decode URL components.', LinkIcon, Url);
     registerFeature(
         'Formatter',
         'JSON',

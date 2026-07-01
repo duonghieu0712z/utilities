@@ -31,8 +31,8 @@ onMounted(generateText);
 </script>
 
 <template>
-    <div class="mx-auto flex h-full w-full flex-col gap-4">
-        <div class="flex w-full gap-4">
+    <div class="mx-auto flex min-h-0 w-full flex-1 flex-col gap-4">
+        <div class="flex w-full shrink-0 gap-4">
             <InputGroup>
                 <InputGroupInput
                     v-model.number="count"
@@ -82,12 +82,6 @@ onMounted(generateText);
             </Button>
         </div>
 
-        <Textarea
-            class="font-code scrollbar field-sizing-fixed flex-1 resize-none"
-            :model-value="text"
-            name="lorem-ipsum"
-            readonly
-            :spellcheck="false"
-        />
+        <CodeMirrorEditor class="flex-1" :model-value="text" readonly wrapLine />
     </div>
 </template>

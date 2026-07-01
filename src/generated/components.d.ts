@@ -22,6 +22,7 @@ declare module 'vue' {
     ButtonGroup: typeof import('./../components/ui/button-group/ButtonGroup.vue')['default']
     ButtonGroupSeparator: typeof import('./../components/ui/button-group/ButtonGroupSeparator.vue')['default']
     ButtonGroupText: typeof import('./../components/ui/button-group/ButtonGroupText.vue')['default']
+    CodeMirrorEditor: typeof import('./../components/editor/CodeMirrorEditor.vue')['default']
     Collapsible: typeof import('./../components/ui/collapsible/Collapsible.vue')['default']
     CollapsibleContent: typeof import('./../components/ui/collapsible/CollapsibleContent.vue')['default']
     CollapsibleTrigger: typeof import('./../components/ui/collapsible/CollapsibleTrigger.vue')['default']

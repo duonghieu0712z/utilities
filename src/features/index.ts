@@ -1,7 +1,8 @@
-import { ALargeSmallIcon, BracesIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
+import { ALargeSmallIcon, BinaryIcon, BracesIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
 
 import { useFeatures } from '@/composables/use-features';
 
+import Base64 from './Base64.vue';
 import Hash from './Hash.vue';
 import Json from './Json.vue';
 import LoremIpsum from './LoremIpsum.vue';
@@ -31,6 +32,7 @@ export function registerFeatures() {
         HashIcon,
         Hash,
     );
+    registerFeature('Codec', 'Base64', 'Encode and decode Base64 text.', BinaryIcon, Base64);
     registerFeature(
         'Formatter',
         'JSON',

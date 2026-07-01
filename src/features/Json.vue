@@ -7,28 +7,27 @@ import { useClipboardCopy } from '@/composables/use-clipboard-copy';
 type JsonTabSize = 2 | 4;
 type JsonMode = 'format' | 'minify';
 
-const SAMPLE_JSON = JSON.stringify(
-    {
-        name: 'Sample Data',
-        description: 'This is a sample JSON object',
-        items: [
-            {
-                id: 1,
-                name: 'Item 1',
-                price: 10.99,
-                active: true,
-            },
-            {
-                id: 2,
-                name: 'Item 2',
-                price: 25.5,
-                active: false,
-            },
-        ],
-    },
-    null,
-    2,
-);
+const SAMPLE_VALUE = {
+    name: 'Sample Data',
+    description: 'This is a sample JSON object',
+    items: [
+        {
+            id: 1,
+            name: 'Item 1',
+            price: 10.99,
+            active: true,
+        },
+        {
+            id: 2,
+            name: 'Item 2',
+            price: 25.5,
+            active: false,
+        },
+    ],
+};
+
+const SAMPLE_FORMAT_JSON = JSON.stringify(SAMPLE_VALUE);
+const SAMPLE_MINIFY_JSON = JSON.stringify(SAMPLE_VALUE, null, 2);
 
 const input = ref('');
 const output = ref('');
@@ -72,7 +71,7 @@ function selectMode(value: JsonMode, selected: boolean) {
 }
 
 function generateSample() {
-    input.value = SAMPLE_JSON;
+    input.value = mode.value === 'format' ? SAMPLE_FORMAT_JSON : SAMPLE_MINIFY_JSON;
 }
 
 async function copyJson() {

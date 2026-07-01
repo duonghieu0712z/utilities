@@ -6,6 +6,7 @@ import { useClipboardCopy } from '@/composables/use-clipboard-copy';
 type Base64Mode = 'encode' | 'decode';
 
 const SAMPLE_TEXT = 'Hello, Base64!';
+const SAMPLE_BASE64 = 'SGVsbG8sIEJhc2U2NCE=';
 
 const input = ref('');
 const output = ref('');
@@ -56,7 +57,7 @@ function selectMode(value: Base64Mode, selected: boolean) {
 }
 
 function generateSample() {
-    input.value = SAMPLE_TEXT;
+    input.value = mode.value === 'encode' ? SAMPLE_TEXT : SAMPLE_BASE64;
 }
 
 async function copyOutput() {

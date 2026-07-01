@@ -1,8 +1,9 @@
-import { ALargeSmallIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
+import { ALargeSmallIcon, BracesIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
 
 import { useFeatures } from '@/composables/use-features';
 
 import Hash from './Hash.vue';
+import Json from './Json.vue';
 import LoremIpsum from './LoremIpsum.vue';
 import Uuid from './Uuid.vue';
 
@@ -29,5 +30,12 @@ export function registerFeatures() {
         'Generate message digests from text input in Hex, Base64, or Base64url.',
         HashIcon,
         Hash,
+    );
+    registerFeature(
+        'Formatter',
+        'JSON',
+        'Format, minify, fold, and copy JSON in a single editor.',
+        BracesIcon,
+        Json,
     );
 }

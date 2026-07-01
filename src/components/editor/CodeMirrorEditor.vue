@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 import { EditorLanguage } from '.';
 import {
+    getIndentGuideExtension,
     getLanguageExtension,
     getReadonlyExtensions,
     getTabExtension,
@@ -152,6 +153,7 @@ onMounted(() => {
             themeCompartment.of(getThemeExtensions(isDark.value)),
             wrappingCompartment.of(getWrappingExtension(props.wrapLine)),
             tabCompartment.of(getTabExtension(props.tabSize)),
+            getIndentGuideExtension(),
             EditorView.updateListener.of((update) => {
                 if (!update.docChanged || syncingFromParent) {
                     return;

@@ -1,4 +1,11 @@
-import { ALargeSmallIcon, BinaryIcon, BracesIcon, FingerprintIcon, HashIcon } from '@lucide/vue';
+import {
+    ALargeSmallIcon,
+    BinaryIcon,
+    BracesIcon,
+    FingerprintIcon,
+    HashIcon,
+    KeyRoundIcon,
+} from '@lucide/vue';
 
 import { useFeatures } from '@/composables/use-features';
 
@@ -6,6 +13,7 @@ import Base64 from './Base64.vue';
 import Hash from './Hash.vue';
 import Json from './Json.vue';
 import LoremIpsum from './LoremIpsum.vue';
+import RandomString from './RandomString.vue';
 import Uuid from './Uuid.vue';
 
 export function registerFeatures() {
@@ -24,6 +32,13 @@ export function registerFeatures() {
         'Generate UUID values across standard versions, including namespace-based UUIDs.',
         FingerprintIcon,
         Uuid,
+    );
+    registerFeature(
+        'Generator',
+        'Random String',
+        'Generate random strings with configurable character sets.',
+        KeyRoundIcon,
+        RandomString,
     );
     registerFeature(
         'Crypto',

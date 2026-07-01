@@ -193,8 +193,6 @@ onBeforeUnmount(() => {
             )
         "
     >
-        <div ref="editorRef" class="h-full min-h-0 overflow-hidden"></div>
+        <div ref="editorRef" class="h-full min-h-0 w-full overflow-hidden"></div>
     </div>
 </template>
-
-<style lang="css" scoped></style>

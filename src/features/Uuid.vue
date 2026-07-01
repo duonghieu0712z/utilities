@@ -171,13 +171,7 @@ onMounted(generateUuid);
             </div>
         </template>
 
-        <Textarea
-            id="uuid"
-            class="scrollbar font-code h-52 w-full resize-none text-center"
-            :model-value="uuidText"
-            readonly
-            :spellcheck="false"
-        />
+        <CodeMirrorEditor class="h-52" :model-value="uuidText" readonly wrapLine />
 
         <div class="flex justify-end gap-2">
             <Button size="icon" variant="outline" @click="generateUuid">

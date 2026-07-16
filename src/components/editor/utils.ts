@@ -99,7 +99,7 @@ function buildIndentGuides(view: EditorView) {
     const tabSize = view.state.tabSize;
 
     for (const { from, to } of view.visibleRanges) {
-        for (let position = from; position <= to; ) {
+        for (let position = from; position <= to;) {
             const line = view.state.doc.lineAt(position);
             const text = line.text;
             let column = 0;
